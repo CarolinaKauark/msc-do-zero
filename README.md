@@ -111,9 +111,6 @@
 </br>
 
 ### 3. Crie um endpoint do tipo <strong> put '/person/:id'</strong> que permita a atualização dos dados de uma pessoa.
-⚠️  Atenção: Esse endpoint pode permitir cadastrar mais de uma pessoa.
-- O campo name precisa existir e ser maior que 5
-- O campo id precisa existir
 
 <details><summary> O corpo da requisição deve vir no formato: </summary>
 
@@ -124,8 +121,9 @@
         "cpf": "33388856480"
     }
 
-
 </details>
+
+- A resposta deve ter o id e o status 200:
 
 </br>
 </br>
