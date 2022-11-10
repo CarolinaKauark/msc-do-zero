@@ -13,11 +13,122 @@
     - Deletar uma pessoa. 
 
 
-- Para isso será necessário seguir alguns pontos importantes: 
+## Para isso será necessário seguir alguns pontos importantes: 
 
-1. Crie um endpoint do tipo get '/person' que permita vizualizar todas as pessoas cadastradas.
+### 1. Crie um endpoint do tipo <strong> get '/person'</strong> que permita vizualizar todas as pessoas cadastradas.
+<details><summary>A resposta deve ter esse formato com status 200:</summary>
 
- </br>
+        [
+            {
+                "id": 1,
+                "name": "Ted Evelyn Mosby",
+                "email": "schmoby@email.com",
+                "birth_date": "1978-04-25T00:00:00.000Z",
+                "cpf": "12345678910"
+            },
+            {
+                "id": 2,
+                "name": "Barney Stinson",
+                "email": "Swarley@email.com",
+                "birth_date": "1975-11-11T00:00:00.000Z",
+                "cpf": "33388856480"
+            },
+            {
+                "id": 3,
+                "name": "Robin Scherbatsky",
+                "email": "sparkles@email.com",
+                "birth_date": "1980-07-23T00:00:00.000Z",
+                "cpf": "96314785234"
+            }
+        ]
+    
+</details>
+</br>
+
+### 2. Crie um endpoint do tipo <strong> post '/person'</strong> que permita cadastrar pessoas.
+⚠️  Atenção: Esse endpoint pode permitir cadastrar mais de uma pessoa.
+- O campo name precisa existir e ser maior que 5
+
+    <details><summary> O corpo da requisição deve vir no formato: </summary>
+
+        [
+            {
+                "name": "Marshall Eriksen",
+                "email": "marshmallow@email.com",
+                "birthDate": "1978-02-15",
+                "cpf": "25639874125"
+            },
+            {
+                "name": "Lily Aldrin",
+                "email": "lilypad@email.com",
+                "birthDate": "1978-03-24",
+                "cpf": "12348569741"
+            }
+        ]
+</details>
+
+<details><summary>A resposta deve ter esse formato com status 201:</summary>
+
+        [
+            {
+                "id": 1,
+                "name": "Ted Evelyn Mosby",
+                "email": "schmoby@email.com",
+                "birth_date": "1978-04-25T00:00:00.000Z",
+                "cpf": "12345678910"
+            },
+            {
+                "id": 2,
+                "name": "Barney Stinson",
+                "email": "Swarley@email.com",
+                "birth_date": "1975-11-11T00:00:00.000Z",
+                "cpf": "33388856480"
+            },
+            {
+                "id": 3,
+                "name": "Robin Scherbatsky",
+                "email": "sparkles@email.com",
+                "birth_date": "1980-07-23T00:00:00.000Z",
+                "cpf": "96314785234"
+            },
+            {
+                "id": 4,
+                "name": "Marshall Eriksen",
+                "email": "marshmallow@email.com",
+                "birthDate": "1978-02-15",
+                "cpf": "25639874125"
+            },
+            {
+                "id": 5,
+                "name": "Lily Aldrin",
+                "email": "lilypad@email.com",
+                "birthDate": "1978-03-24",
+                "cpf": "12348569741"
+            }
+        ]
+    
+</details>
+</br>
+
+### 3. Crie um endpoint do tipo <strong> put '/person/:id'</strong> que permita a atualização dos dados de uma pessoa.
+⚠️  Atenção: Esse endpoint pode permitir cadastrar mais de uma pessoa.
+- O campo name precisa existir e ser maior que 5
+- O campo id precisa existir
+
+<details><summary> O corpo da requisição deve vir no formato: </summary>
+
+    {
+        "name": "Barnabus  Stinson",
+        "email": "daddyshome@email.com",
+        "birth_date": "1975-11-11",
+        "cpf": "33388856480"
+    }
+
+
+</details>
+
+</br>
+</br>
 <details>
 <summary> 💡 <strong>Configurando uma aplicação backend com nodejs + express + MySQL + testes:</strong></summary>
 
