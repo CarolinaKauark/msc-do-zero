@@ -1,6 +1,27 @@
-# Configurando uma aplicação backend com nodejs + express + MySQL + testes:
+# MSC DO ZERO: 
 
-## Configurando o node
+- <strong>Model:</strong> Essa camada tem como responsabilidade acomodar todo código capaz de acessar dados sejam eles em um banco de dados ou no sistema de arquivos.
+- <strong>Service:</strong>: Essa camada tem como responsabilidade validar as regras de negócio de uma aplicação.
+- <strong>Controller:</strong> Essa camada tem como responsabilidade validar os valores recebidos de uma aplicação cliente.
+
+## Proposta do projeto ⛏️:
+
+###   👉  Você foi contratado para construir uma API que consuma uma banco de dados de cadastro de pessoas de uma loja e para satifazer o cliente é necessário que essa API nos permita: 
+    - Ler todas as pessoas cadastradas,
+    - Cadastra um nova pessoa, sendo possível cadastrar mais de uma pessoa por vez,
+    - Atualizar as informações de uma pessoa caso seja necessário,
+    - Deletar uma pessoa. 
+
+
+- Para isso será necessário seguir alguns pontos importantes: 
+
+1. Crie um endpoint do tipo get '/person' que permita vizualizar todas as pessoas cadastradas.
+
+ </br>
+<details>
+<summary> 💡 <strong>Configurando uma aplicação backend com nodejs + express + MySQL + testes:</strong></summary>
+
+### Configurando o node
 
 1. Inicia o node: 
     ```sh
@@ -10,171 +31,97 @@
     ```sh
     npm install -D nodemon
     ```
-    - -D dependência de desenvolvimento
+    - 📌 a flag "-D" significa que será instalado como dependência de desenvolvimento
 </br>
 
-## Configurando o express
+### Configurando o express
 
 1. Instala o express:
     ```sh
     npm install express
     ```
-    - o Router é importado do express
+    - 📌 o Router é nativo do express
 
 </br>
 
-## Instalando o banco de dados - MySQL
+### Instalando o banco de dados - MySQL
 
-1. Instala o MySQL e o dotenv:
+1. Instala o MySQL:
     ```sh
-    npm i mysql2 dotenv
+    npm i mysql2
     ```
-</br>
 
-## Instalando a ORM Sequelize e configurando junto ao Typescript 
-
-1. Instala o Sequelize e a declaração de tipos p/ sequelize:
+2. Instala o dotenv:
     ```sh
-    npm i sequelize @types/sequelize
+    npm i dotenv
     ```
-
-    - É importante lembrar que o sequelize-cli não dá suporte nativo na interpretação/criação de migrations, seeders e models em TS.
-    - Sequelize possui suas próprias definições de tipos, mas isso significa que para utilizarmos ele na nossa API teremos que fazer algumas coisas “na mão”.
-
 </br>
 
-2. Instala o CLI do Sequelize:
+### Instalando os frameworks de teste
+
+1. Instala o mocha e chai:
     ```sh
-    npm i -D sequelize-cli
+    npm i -D mocha chai
     ```
-</br>
 
-3. Para configurar o sequelize-cli, é necessário criar o arquivo <strong>.sequelizerc</strong>, ele será responsável por guardar as informações dos caminhos onde devem se encontrar seus recursos do DB:
-
+2. Instala o sinon:
     ```sh
-    const path = require('path');
-
-    module.exports = {
-    'config': path.resolve(__dirname,'build','database','config', 'database.js'),
-    'models-path': path.resolve(__dirname,'build','database','models'),
-    'seeders-path': path.resolve(__dirname,'src','database', 'seeders'),
-    'migrations-path': path.resolve(__dirname,'src','database', 'migrations'),
-    };
-    ```
-    - OBS: A pasta "build" é referente a pasta configurada em seu tsconfig.json, na propriedade compilerOptions.outDir, essa pasta é gerada pelo compilador, transformando os arquivos ts em JS Vanilla.
-
-</br>
-
-4. Roda o comando do cli:
-     ```sh
-    npx sequelize-cli init
-    ```
-    - Crie as pastas: ./src/database/config/ ./src/database/models/
-    - Descarte a pasta ./build/database/
-
-</br>
-
-5. Crie o arquivo em ./src/database/config/database.ts:
-    ```sh
-    import 'dotenv/config';
-    import { Options } from 'sequelize';
-
-    const config: Options = {
-    username: process.env.DB_USER || 'root',
-    password: process.env.DB_PASS || 'password',
-    database: process.env.DB_NAME || 'app_db_lend',
-    host: process.env.DB_HOST || 'localhost',
-    port: Number(process.env.DB_PORT) || 3306,
-    dialect: 'mysql',
-    }
-
-    export = config;
-    ```
-    - Caso o objeto process acuse erro, inclua em sua aplicação o pacote @types/node como dependência de desenvolvimento.
-
-</br>
-
-### OBS: As migrations e seeders podem ser feitas com ajuda do sequelize-cli. Os models em TS.
-</br>
-
-<details>
-<summary>Criando as migrations, seeders e models</summary>
-
-### Migrations
-
-    ```
-    npx sequelize migration:generate --name nome-da-migration
-    ```
-### Seeders
-    ```sh
-    npx sequelize seed:generate --name nome-da-seed
+    npm i -D sinon
     ```
 
-### Models
- - Cria a model com nome desejado, a model é extendida da { Model } do sequelize:
- - Lembre-se de criar na pasta ./src/database/models/.ts
- - Exemplo: 
-    ```sh
-    import { Model } from 'sequelize';
-    import db from '.';
-
-    import OtherModel from './OtherModel'; // Nossa outra entidade
-
-    class Example extends Model {
-    // declare <campo>: <tipo>;
-    }
-
-    Example.init({
-    // ... Campos
-    }, {
-    // ... Outras configs
-    underscored: true,
-    sequelize: db,
-    // modelName: 'example',
-    timestamps: false,
-    });
-
-    /**
-    * `Workaround` para aplicar as associations em TS:
-    * Associations 1:N devem ficar em uma das instâncias de modelo
-    * */
-
-    OtherModel.belongsTo(Example, { foreignKey: 'campoA', as: 'campoEstrangeiroA' });
-    OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
-
-    Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
-    Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
-
-    export default Example;
-    ```
-</details>
-
-</br>
-
-## Configurando o package.json
+<details><summary> 💻  Configurando o package.json </summary>
 
 ```
     ...
     "scripts": {
-        "start": "npm run build && node ./build/index.js",
-        "dev": "tsnd index.ts",
-        "build": "tsc"
-        "db:reset": "npx -y tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
+        "test": "jest --config ./jest.config.js --runInBand --detectOpenHandles",
+        "test:mocha": "nyc --all --include src/models --include src/services --include src/controllers mocha tests/unit/**/*.js --exit",
+        "start": "node src/server.js",
+        "debug": "nodemon --ignore coverage --inspect=0.0.0.0:9229 src/server.js",
+        "migration": "node -e \"require('./__tests__/_utils').runMigration()\"",
+        "seed": "node -e \"require('./__tests__/_utils').runSeed()\""
     },
     ...
 ```
+</details>
 </br>
 
-## Bibliotecas que auxiliam:
+<details><summary> ⚙️ Configurando a conexão do banco com o express </summary>
+
+```
+    const mysql = require('mysql2/promise');
+
+    require('dotenv').config(); // não se esqueça de configurar suas variáveis de ambiente aqui na configuração
+
+    const connection = mysql.createPool({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
+    });
+
+    module.exports = connection;
+```
+
+ - ⚠️ As variáveis de ambiente são declaradas no arquivo .env ou no docker caso esteja utilizando um container! ⚠️ 
+
+</details>
+
+</br>
+
+### Bibliotecas que auxiliam:
 
 - Biblioteca de status HTTP:
     ```sh
     npm i http-status-codes
     ``` 
+    - 📌 Possui uma biblioteca de status HTTP
 
-- Biblioteca de tratamento de erros - não tem a necessidade de colocar try/catch: 
+- Biblioteca de tratamento de erros:
     ```sh
     npm install express-async-errors
     ```
+    - 📌 Ajuda no tratamento de erros sem precisar usar o try/catch
+</details>
 
 
