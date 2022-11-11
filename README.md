@@ -2,7 +2,7 @@
 
 - <strong>Model:</strong> Essa camada tem como responsabilidade acomodar todo código capaz de acessar dados sejam eles em um banco de dados ou no sistema de arquivos.
 - <strong>Service:</strong>: Essa camada tem como responsabilidade validar as regras de negócio de uma aplicação.
-- <strong>Controller:</strong> Essa camada tem como responsabilidade validar os valores recebidos de uma aplicação cliente.
+- <strong>Controller:</strong> Essa camada tem como responsabilidade receber as requisições e mandar as respostas, além de validar os valores recebidos de uma aplicação cliente.
 
 ## Proposta do projeto ⛏️:
 
@@ -112,12 +112,14 @@
 
 ### 3. Crie um endpoint do tipo <strong> put '/person/:id'</strong> que permita a atualização dos dados de uma pessoa.
 
+⚠️  Atenção: O id precisa existir no banco de dados!
+
 <details><summary> O corpo da requisição deve vir no formato: </summary>
 
     {
         "name": "Barnabus  Stinson",
         "email": "daddyshome@email.com",
-        "birth_date": "1975-11-11",
+        "birthDate": "1975-11-11",
         "cpf": "33388856480"
     }
 
@@ -186,9 +188,7 @@
         "test": "jest --config ./jest.config.js --runInBand --detectOpenHandles",
         "test:mocha": "nyc --all --include src/models --include src/services --include src/controllers mocha tests/unit/**/*.js --exit",
         "start": "node src/server.js",
-        "debug": "nodemon --ignore coverage --inspect=0.0.0.0:9229 src/server.js",
-        "migration": "node -e \"require('./__tests__/_utils').runMigration()\"",
-        "seed": "node -e \"require('./__tests__/_utils').runSeed()\""
+        "debug": "nodemon --ignore coverage --inspect=0.0.0.0:9229 src/server.js"
     },
     ...
 ```
