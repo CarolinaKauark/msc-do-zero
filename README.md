@@ -119,7 +119,7 @@
     {
         "name": "Barnabus  Stinson",
         "email": "daddyshome@email.com",
-        "birth_date": "1975-11-11",
+        "birthDate": "1975-11-11",
         "cpf": "33388856480"
     }
 
