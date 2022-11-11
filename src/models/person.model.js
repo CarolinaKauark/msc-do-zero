@@ -20,8 +20,18 @@ const updateById = async (id, { name, email, birthDate, cpf }) => connection.exe
   [name, email, birthDate, cpf, id],
 );
 
+const getById = async (id) => {
+  const [result] = await connection.execute(
+    'SELECT * FROM register_db.person WHERE id = (?)', 
+    [id],
+  );
+
+  return result;
+}
+
 module.exports = {
   getAll,
   insertPerson,
-  updateById
+  updateById,
+  getById
 }

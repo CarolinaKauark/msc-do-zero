@@ -13,6 +13,9 @@ const insertPeople = async (people) => {
 }
 
 const updateById = async (id, person) => {
+  const hasPerson = await personModel.getById(id);
+  if(!hasPerson.length) return { type: 404, message: 'Essa pessoa não existe' };
+
   await personModel.updateById(id, person);
   return { type: null, message: id };
 }

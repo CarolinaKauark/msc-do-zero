@@ -2,7 +2,7 @@
 
 - <strong>Model:</strong> Essa camada tem como responsabilidade acomodar todo código capaz de acessar dados sejam eles em um banco de dados ou no sistema de arquivos.
 - <strong>Service:</strong>: Essa camada tem como responsabilidade validar as regras de negócio de uma aplicação.
-- <strong>Controller:</strong> Essa camada tem como responsabilidade validar os valores recebidos de uma aplicação cliente.
+- <strong>Controller:</strong> Essa camada tem como responsabilidade receber as requisições e mandar as respostas, além de validar os valores recebidos de uma aplicação cliente.
 
 ## Proposta do projeto ⛏️:
 
@@ -111,6 +111,8 @@
 </br>
 
 ### 3. Crie um endpoint do tipo <strong> put '/person/:id'</strong> que permita a atualização dos dados de uma pessoa.
+
+⚠️  Atenção: O id precisa existir no banco de dados!
 
 <details><summary> O corpo da requisição deve vir no formato: </summary>
 
