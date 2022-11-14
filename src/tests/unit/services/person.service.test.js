@@ -56,4 +56,27 @@ describe('Testa a camada service para a rota "/person"', function () {
       expect(responde).to.be.deep.equal(result);
     });
   });
+
+  describe('Testa a camada service para a função "remove"', function () {
+    it('Faz a remoção de uma pessoa pelo id', async function () {
+      const result = { type: null, message: 'Operação realizada com sucesso!' };
+
+      sinon.stub(personModel, 'getById').resolves([person]);
+      sinon.stub(personModel, 'remove').resolves(undefined);
+
+      const response = await personService.remove(id);
+
+      expect(response).to.be.deep.equal(result);
+    });
+
+    it('Tenta fazer a remoção de uma pessoa com um id que não existe', async function () {
+      const result = { type: 404, message: 'Essa pessoa não existe' };
+
+      sinon.stub(personModel, 'getById').resolves([]);
+
+      const response = await personService.remove(999);
+
+      expect(response).to.be.deep.equal(result);
+    });
+  });
 });

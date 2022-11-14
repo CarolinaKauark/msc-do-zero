@@ -44,4 +44,14 @@ describe('Testa a camada model para a rota "/person"', function () {
       expect(response).to.be.equal(person);
     });
   });
+
+  describe('Testa a camada model para a função "remove"', function () {
+    it('Faz a remoção de uma pessoa com sucesso', async function () {
+      sinon.stub(connection, 'execute').resolves(undefined);
+
+      const response = await personModel.remove(id);
+
+      expect(response).to.be.equal(undefined);
+    });
+  });
 });

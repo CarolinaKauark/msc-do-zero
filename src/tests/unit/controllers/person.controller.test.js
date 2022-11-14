@@ -93,4 +93,37 @@ describe('Testa a camada controller para a rota "/person"', function () {
       expect(res.json).to.have.been.calledWith({ message: 'Essa pessoa não existe' });
     });
   });
+
+
+  describe('Testa a camada controller para a função "remove"', function () {
+    it('Faz a remoção de uma pessoa através do id', async function () {
+      const req = { params: { id: 1 } };
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(personService, 'remove').resolves({ type: null, message: 'Operação realizada com sucesso!' });
+
+      await personController.remove(req, res);
+
+      expect(res.status).to.have.been.calledWith(204);
+      expect(res.json).to.have.been.calledWith({ message: 'Operação realizada com sucesso!' });
+    });
+
+    it('Faz a remoção de uma pessoa através do id', async function () {
+      const req = { params: { id: 999 } };
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(personService, 'remove').resolves({ type: 404, message: 'Essa pessoa não existe' });
+
+      await personController.remove(req, res);
+
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: 'Essa pessoa não existe' });
+    });
+  });
 });
