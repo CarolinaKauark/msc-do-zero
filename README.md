@@ -128,6 +128,20 @@
 - A resposta deve ter o id e o status 200:
 
 </br>
+
+### 4. Crie os testes unitários para os exercícios realizados acima.
+
+Crie testes de unidade que comtemplem todas as camadas para cada um dos endpoints que criamos até o momento.
+
+</br>
+
+### 5. Crie o endpoint do tipo <strong> delete '/person/:id' </strong> que permita remover uma pessoa cadastrada.
+
+⚠️  Atenção: O id precisa existir no banco de dados!
+
+Utilizando o método de TDD, elabore esse endpoint iniciando pelos testes de unidade e não se esqueça de testar cada camada.
+- Em caso de sucesso, retorne o status `204` e a menssagem **"Operação realizada com sucesso!"**.
+
 </br>
 <details>
 <summary> 💡 <strong>Configurando uma aplicação backend com nodejs + express + MySQL + testes:</strong></summary>
@@ -175,9 +189,9 @@
     npm i -D mocha chai
     ```
 
-2. Instala o sinon:
+2. Instala o sinon e o sinon-chai:
     ```sh
-    npm i -D sinon
+    npm i -D sinon sinon-chai
     ```
 
 <details><summary> 💻  Configurando o package.json </summary>
@@ -185,8 +199,7 @@
 ```
     ...
     "scripts": {
-        "test": "jest --config ./jest.config.js --runInBand --detectOpenHandles",
-        "test:mocha": "nyc --all --include src/models --include src/services --include src/controllers mocha tests/unit/**/*.js --exit",
+        "test": "mocha src/tests/unit/**/*.js --exit",
         "start": "node src/server.js",
         "debug": "nodemon --ignore coverage --inspect=0.0.0.0:9229 src/server.js"
     },
