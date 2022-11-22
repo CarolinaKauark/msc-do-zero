@@ -4,8 +4,7 @@
   "description": "- <strong>Model:</strong> Essa camada tem como responsabilidade acomodar todo código capaz de acessar dados sejam eles em um banco de dados ou no sistema de arquivos. - <strong>Service:</strong>: Essa camada tem como responsabilidade validar as regras de negócio de uma aplicação. - <strong>Controller:</strong> Essa camada tem como responsabilidade validar os valores recebidos de uma aplicação cliente.",
   "main": "index.js",
   "scripts": {
-    "test": "jest --config ./jest.config.js --runInBand --detectOpenHandles",
-    "test:mocha": "nyc --all --include src/models --include src/services --include src/controllers mocha tests/unit/**/*.js --exit",
+    "test": "mocha src/tests/unit/**/*.js --exit",
     "start": "node src/server.js",
     "debug": "nodemon --ignore coverage --inspect=0.0.0.0:9229 src/server.js"
   },
@@ -24,7 +23,8 @@
     "chai": "^4.3.7",
     "mocha": "^10.1.0",
     "nodemon": "^2.0.20",
-    "sinon": "^14.0.2"
+    "sinon": "^14.0.2",
+    "sinon-chai": "^3.7.0"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
